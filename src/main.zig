@@ -5,7 +5,9 @@ pub fn main(init: std.process.Init) !void {
     var stdin = std.Io.File.stdin().reader(init.io, &stdio_buffer);
     var stdout = std.Io.File.stdout().writer(init.io, &.{});
 
-    try stdout.interface.print("$ ", .{});
-    const command = try stdin.interface.takeDelimiter('\n');
-    try stdout.interface.print("{s}: command not found\n", .{command.?});
+    while (true) {
+        try stdout.interface.print("$ ", .{});
+        const command = try stdin.interface.takeDelimiter('\n');
+        try stdout.interface.print("{s}: command not found\n", .{command.?});
+    }
 }
